@@ -1,6 +1,6 @@
 const App = () => (
   <div>
-    <p>Hello MiaMia users</p>
+    <p>Hello MiaMia users!</p>
   </div>
 )
 
