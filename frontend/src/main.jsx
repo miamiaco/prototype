@@ -2,9 +2,7 @@ import ReactDOM from 'react-dom/client'
 import axios from 'axios'
 import App from './App'
 
-const baseUrl = 'http://localhost:3001/api/notes'
-
-
+const baseUrl = '/api/notes'
 
 axios.get(baseUrl).then(response => {
   const notes = response.data
