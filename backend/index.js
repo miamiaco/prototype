@@ -5,20 +5,21 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.static('dist'))
 
+
 let notes = [
     {
       id: 1,
-      content: "HTML is easy",
+      content: "Recipe 1",
       important: true
     },
     {
       id: 2,
-      content: "Browser can execute only JavaScript",
+      content: "Recipe 2",
       important: false
     },
     {
       id: 3,
-      content: "GET and POST are the most important methods of HTTP protocol",
+      content: "Recipe 3",
       important: true
     }
   ]
