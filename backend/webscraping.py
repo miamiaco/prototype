@@ -42,7 +42,7 @@ for path in category_paths:
         full_recipe_url = href if href.startswith('http') else base_url + href
         # Filter conditions
         if ("/reseptit/" in full_recipe_url and
-            not any(excluded in full_recipe_url for excluded in ["?category=", "/kysymys", "spotify.com"]) and
+            not any(excluded in full_recipe_url for excluded in ["?category=", "/category", "/kysymys", "spotify.com"]) and
             full_recipe_url.startswith(base_url)):
             unique_recipe_urls.add(full_recipe_url)
 

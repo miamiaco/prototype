@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-# Example recipe URL
+# List of recipe URLs
 recipe_urls = [
     "https://www.bellatable.fi/reseptit/romescoa-ja-paahdettua-purjoa",
     "https://www.bellatable.fi/reseptit/savulohikiusaus",
@@ -21,63 +21,44 @@ recipe_urls = [
     "https://www.bellatable.fi/reseptit/gnocchivuoka",
     "https://www.bellatable.fi/reseptit/butterchickpea",
     "https://www.bellatable.fi/reseptit/mansikka-raparperiviinerit",
-    "https://www.bellatable.fi/reseptit/naminamastensampylat",
-    "https://www.bellatable.fi/reseptit/chevresalaatti",
-    "https://www.bellatable.fi/reseptit/Kurpitsagnocchi-cacioepepe",
-    "https://www.bellatable.fi/reseptit/maissichowder",
-    "https://www.bellatable.fi/reseptit/markun-kreikkalainen-salaatti",
-    "https://www.bellatable.fi/reseptit/raejuustopannari",
-    "https://www.bellatable.fi/reseptit/suklaakakku-kahvi",
-    "https://www.bellatable.fi/reseptit/kesakeitto",
-    "https://www.bellatable.fi/reseptit/Spicytunatoast",
-    "https://www.bellatable.fi/reseptit/kalaa-en-papilotte",
-    "https://www.bellatable.fi/reseptit/kanagyros",
-    "https://www.bellatable.fi/reseptit/nelja-reseptia-sailyketomaateista",
-    "https://www.bellatable.fi/reseptit/Bagnacauda",
-    "https://www.bellatable.fi/reseptit/magnolia-bakeryn-banaanivanukas",
-    "https://www.bellatable.fi/reseptit/perunarieskat",
-    "https://www.bellatable.fi/reseptit/misomunakoiso",
-    "https://www.bellatable.fi/reseptit/aglio-olio-e-peperoncino-1",
-    "https://www.bellatable.fi/reseptit/fattoush",
-    "https://www.bellatable.fi/reseptit/Crepecomplete",
-    "https://www.bellatable.fi/reseptit/annan-shanghai-taco",
-    "https://www.bellatable.fi/reseptit/5jvo28mpa04gctiwdobtawrsj2enys-d3ygl-z2fye-6ct54-exe85-azncj-exhy7-k7azf-9pxt9-at884-g2tlw-gkege-2tnt8-xlb5d",
-    "https://www.bellatable.fi/reseptit/paasiaisfeast",
-    "https://www.bellatable.fi/reseptit/gremolata-voi",
-    "https://www.bellatable.fi/reseptit/Tattarikrokantti",
-    "https://www.bellatable.fi/reseptit/latket",
 ]
+
 
 def scrape_recipe(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Scrape the title of the recipe
+    title_tag = soup.find('h1', class_='entry-title entry-title--large p-name')
+    title = title_tag.get_text(strip=True) if title_tag else 'No Title Found'
+    
+    # Scrape the content paragraphs
     content_paragraphs = soup.find_all('p', style="white-space:pre-wrap;")
+    all_content_text = "\n\n".join(p.get_text(separator='\n', strip=True) for p in content_paragraphs)
     
-    all_content_text = ""
-    for p in content_paragraphs:
-        paragraph_text = p.get_text(separator='\n', strip=True)
-        all_content_text += paragraph_text + "\n\n"
+    # Scrape the image URLs, excluding a specific image if found
+    excluded_image_filename = "bellatable_red.png"
+    image_blocks = soup.find_all('div', class_='image-block-wrapper')
+    image_urls = [img['src'] for block in image_blocks for img in block.find_all('img', src=True) if excluded_image_filename not in img['src']]
     
-    return all_content_text.strip()
+    return {
+        'url': url,
+        'title': title,
+        'content': all_content_text.strip(),
+        'images': image_urls  # Direct URLs of the images, excluding the specified one
+    }
 
-# List to store each recipe's content
+# List to store the content of each recipe
 recipes_content = []
 
-# Iterate through URLs and scrape content for each
+# Iterate through URLs and scrape content, title, and images for each, excluding specific images
 for url in recipe_urls:
     print(f"Scraping content from {url}")
-    content = scrape_recipe(url)
-    # Append a dictionary for each recipe to the list
-    recipes_content.append({
-        'url': url,
-        'content': content
-    })
+    recipe_data = scrape_recipe(url)
+    recipes_content.append(recipe_data)
 
-# Convert the list of dictionaries to JSON
+# Convert the list of recipe data to JSON
 json_content = json.dumps(recipes_content, indent=4, ensure_ascii=False)
-
-# Print the JSON
-print(json_content)
 
 # Optionally, save the JSON to a file
 with open('recipes_content.json', 'w', encoding='utf-8') as f:
