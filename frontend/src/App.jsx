@@ -1,5 +1,4 @@
-const App = (props) => {
-  const { notes } = props
+const App = ({notes}) => {
   const imageUrl = 'https://viimeistamuruamyoten.com/wp-content/uploads/2024/02/muhammara-munakoisot.jpg';
 
   return (
