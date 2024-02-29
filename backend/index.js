@@ -21,11 +21,16 @@ app.get('/api/recipes', (request, response) => {
   response.json(recipes)
 })
 
-app.get('/api/recipes/:id', (request, response) => {
-  Recipe.findById(request.params.id).then(recipe => {
-    response.json(recipe)
-  })
-})
+app.get('/api/recipes/:title', (request, response) => {
+  const title = request.params.title.toLowerCase(); // Assuming titles are case-insensitive
+  const recipe = recipes.find(r => r.title.toLowerCase() === title);
+
+  if (recipe) {
+    response.json(recipe);
+  } else {
+    response.status(404).send({ error: 'Recipe not found' });
+  }
+});
 
 app.post('/api/recipes', (request, response) => {
   const body = request.body
