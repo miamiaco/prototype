@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const fs = require('fs')
 
 app.use(cors())
 app.use(express.static('dist'))
@@ -9,23 +10,8 @@ app.use(express.json())
 
 const Recipe = require('./models/recipe')
 
-let recipes = [
-    {
-      id: 1,
-      name: "Kesärullat",
-      content: "Raaka-aineet ...",
-    },
-    {
-      id: 2,
-      name: "Sitruunapasta kana-jalapenopullilla",
-      content: "Raaka-aineet ...",
-    },
-    {
-      id: 3,
-      name: "Shaksuka",
-      content: "Raaka-aineet ...",
-    }
-  ]
+// Read recipes from recipes_content.json
+let recipes = JSON.parse(fs.readFileSync('recipes_content.json', 'utf-8'))
 
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')

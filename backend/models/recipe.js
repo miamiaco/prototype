@@ -15,7 +15,8 @@ mongoose.connect(url)
   })
 
 const recipeSchema = new mongoose.Schema({
-  name: String,
+  url: String,
+  title: String,
   content: String,
 })
 
