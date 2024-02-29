@@ -1,24 +1,32 @@
+import Feed from './components/Feed'
+import recipeService from './services/feed'
+import { useState, useEffect } from 'react'
+import {
+  BrowserRouter as Router,
+  Routes, Route, Link
+} from 'react-router-dom'
 
-const App = ({recipes}) => {
+const App = () => {
+  const [recipes, setRecipes] = useState([])
 
-  const imageUrl = 'https://viimeistamuruamyoten.com/wp-content/uploads/2024/02/muhammara-munakoisot.jpg';
+  useEffect(() => {
+    recipeService
+      .getAll()
+      .then(initialRecipes => {
+        setRecipes(initialRecipes)
+      })
+  }, [])
 
   return (
     <div>
       <h1>MiaMia</h1>
-      <p>{recipes[0].name}<br/>
-         {recipes[0].content}</p>
-      <p>{recipes[1].name}<br/>
-         {recipes[1].content}</p>
-      <p>{recipes[2].name}<br/>
-         {recipes[2].content}</p>
-      <p>
-      <a href="https://viimeistamuruamyoten.com/muhammaralla-ja-linsseilla-taytetyt-munakoisot/">Muhammaralla ja linsseillä täytetyt munakoisot</a>
-      <img src={imageUrl} alt="First recipe" />
-      </p>
-      
+      <Router>
+        <Routes>
+          <Route path="/" element={<Feed recipes={recipes} />} />       
+        </Routes>
+      </Router>
     </div>
   )
 }
 
-export default App
+export default App;
