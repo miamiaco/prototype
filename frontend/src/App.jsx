@@ -16,6 +16,7 @@ const App = () => {
           <Route path="/:title" element={<Recipe />} />
         </Routes>
       </Router>
+      <footer></footer>
     </div>
   );
 };

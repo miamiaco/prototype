@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 #root {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   max-width: 1280px;
   margin: 0 auto;
   padding: 1rem;
@@ -8,8 +11,8 @@
 }
 
 
-
 /*   Elements   */
+
 
 h1 {
   font-family: "Abril Fatface", serif;
@@ -25,4 +28,8 @@ body {
 p {
   font-family: "Abril Fatface";
   color: black;
+}
+
+footer {
+  padding: 50px; 
 }
