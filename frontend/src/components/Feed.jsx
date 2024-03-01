@@ -25,10 +25,12 @@ const Feed = () => {
     <div className="feed-container">
       {recipes.map(recipe => (
         <div className="recipe-card" key={recipe.title}>
+          
+          <img className="recipe-image" src={getFirstImageUrl(recipe.images)} alt={recipe.title
+          } />
           <h2>
             <Link to={`/${recipe.title}`}>{recipe.title}</Link>
           </h2>
-          <img className="recipe-image" src={getFirstImageUrl(recipe.images)} alt={recipe.title} />
           {/* You can add more recipe details here */}
         </div>
       ))}

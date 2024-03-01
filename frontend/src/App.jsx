@@ -9,7 +9,9 @@ import {
 const App = () => {
   return (
     <div>
-      <h1>MiaMia</h1>
+      <header>
+        <h1>miamia</h1>
+      </header>
       <Router>
         <Routes>
           <Route path="/" element={<Feed />} />
