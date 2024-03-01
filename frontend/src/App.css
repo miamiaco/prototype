@@ -2,13 +2,65 @@
 
 #root {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  justify-content: center;
   max-width: 1280px;
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
 }
+
+.feed-container {
+  /* Adjust the gap and number of columns as desired */
+  column-gap: 1rem;
+  column-count: 3; /* You can adjust this number based on your desired layout */
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.recipe-card {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  background-color: rgb(232, 223, 211);
+}
+
+.recipe-card a, .recipe-card a:visited {
+  text-decoration: none;
+  color: rgb(14, 51, 196);
+}
+
+.recipe-card h2 {
+
+  margin-top: 2rem;
+  margin-bottom: 0.01rem;
+  padding: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .feed-container {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .feed-container {
+    column-count: 1;
+  }
+}
+
+.recipe-image {
+  width: 100%;
+  display: block; /* Ensures that the image scales correctly */
+}
+
+/* Keep your existing styles for h1, body, p, footer */
+
+
+/* Existing styles */
+h1, body, p, footer {
+  /* Keep your existing styles here */
+}
+
 
 
 /*   Elements   */
