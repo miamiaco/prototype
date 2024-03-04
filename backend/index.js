@@ -26,6 +26,7 @@ app.get('/api/recipes/:title', (request, response) => {
   const recipe = recipes.find(r => r.title.toLowerCase() === title);
 
   if (recipe) {
+    response.setHeader('Content-Type', 'application/json; charset=utf-8');
     response.json(recipe);
   } else {
     response.status(404).send({ error: 'Recipe not found' });

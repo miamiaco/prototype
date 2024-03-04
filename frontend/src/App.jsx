@@ -1,5 +1,6 @@
 import Feed from './components/Feed';
 import Recipe from './components/Recipe';
+import TestComponent from './components/TestComponent';
 
 import {
   BrowserRouter as Router,
@@ -18,7 +19,9 @@ const App = () => {
           <Route path="/:title" element={<Recipe />} />
         </Routes>
       </Router>
-      <footer></footer>
+      <footer>
+        <TestComponent></TestComponent>
+      </footer>
     </div>
   );
 };

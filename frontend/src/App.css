@@ -55,9 +55,9 @@ header h1 {
   margin-top: 0.1rem;
   margin-bottom: 0.3rem;
   padding: 1px;
-  font-size: 18px;
-  font-family: "Noto Serif Hebrew", serif;
-  font-weight: 600;
+  font-size: 22px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
 }
 
 /* Responsive adjustments */
@@ -103,7 +103,7 @@ header h1 {
     column-gap: 0.45rem;
   }
   .recipe-card {
-    text-align: center;
+    text-align: left;
   }
   .recipe-card h2 {
     margin-top: 0.1rem;
@@ -127,23 +127,23 @@ header h1 {
 /* Keep your existing styles for h1, body, p, footer */
 
 
-/* Existing styles */
-h1, body, p, footer {
-  /* Keep your existing styles here */
-}
 
 
 /*   Elements   */
+
+
+h1 {
+  font-family: "Abril Fatface", serif;
+  color: rgb(255, 66, 9);
+  font-size: 200px;
+  z-index: 1010;
+}
 
 body {
   background-color: rgb(232, 223, 211);
   padding-top: 0px; /* Adjust this value based on the height of your header */
 }
 
-p {
-  font-family: "Abril Fatface";
-  color: black;
-}
 
 footer {
   padding: 50px; 
@@ -154,10 +154,3 @@ footer {
 /* Color blue: rgb(14, 51, 196);     */
 
 
-
-h1 {
-  font-family: "Abril Fatface", serif;
-  color: rgb(255, 66, 9);
-  font-size: 200px;
-  z-index: 1010;
-}
