@@ -1,37 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import recipeService from '../services/recipe'; 
+import './Recipe.css';
 
 const Recipe = () => {
     const [recipe, setRecipe] = useState(null);
-    const { title } = useParams(); // Now it will work because it's used in the correct context
+    const { title } = useParams();
 
     useEffect(() => {
         if (title) {
-            recipeService.findRecipe({ title }) // Ensure your service accepts an object with a title property
+            recipeService.findRecipe({ title })
                 .then(foundRecipe => {
                     setRecipe(foundRecipe);
-                    console.log(foundRecipe)
                 })
                 .catch(error => {
                     console.error('Failed to fetch recipe:', error);
-                    // Handle error state as needed
                 });
         }
-    }, [title]); // Depend on title to refetch when it changes
+    }, [title]);
+
+    const getFirstImageUrl = (images) => {
+        return Array.isArray(images) && images.length > 0 ? images[0] : '';
+    };
+
+    const renderContent = (content) => {
+        console.log("Original content:", content);
+        const lines = content.split('\n').filter(line => line.trim() !== '');
+    
+        return lines.map((line, index) => {
+            console.log(`Line ${index}:`, line);
+            return <p key={index}>{line}</p>;
+        });
+    };
+    
+    
+
 
     if (!recipe) {
         return <div>Loading...</div>;
     }
 
-    // Once recipe is guaranteed to be non-null, proceed with rendering
     return (
-        <div>
+        <div className="recipeContainer">
             <h1>{recipe.title}</h1>
-            <img src={recipe.images} alt={recipe.title} style={{ width: '100%', height: 'auto' }} />
-            <p>{recipe.title}</p>
-            <p>{recipe.content}</p>
-            <p>{recipe.url}</p>
+            <img className="recipeImage" src={getFirstImageUrl(recipe.images)} alt={recipe.title} />
+            {renderContent(recipe.content)}
+            <p><a href={recipe.url} target="_blank" rel="noopener noreferrer">Source</a></p>
         </div>
     );
 };
