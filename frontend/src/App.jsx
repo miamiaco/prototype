@@ -20,7 +20,6 @@ const App = () => {
         </Routes>
       </Router>
       <footer>
-        <TestComponent></TestComponent>
       </footer>
     </div>
   );
