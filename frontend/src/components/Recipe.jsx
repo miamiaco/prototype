@@ -45,7 +45,7 @@ const Recipe = () => {
             <h1>{recipe.title}</h1>
             <img className="recipeImage" src={getFirstImageUrl(recipe.images)} alt={recipe.title} />
             {renderContent(recipe.content)}
-            <p><a href={recipe.url} target="_blank" rel="noopener noreferrer">Source</a></p>
+            <p><a href={recipe.url} target="_blank" rel="noopener noreferrer">Katso alkuperäinen resepti</a></p>
         </div>
     );
 };

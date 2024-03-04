@@ -1,6 +1,6 @@
 import Feed from './components/Feed';
 import Recipe from './components/Recipe';
-import TestComponent from './components/TestComponent';
+// import TestComponent from './components/TestComponent';
 
 import {
   BrowserRouter as Router,
